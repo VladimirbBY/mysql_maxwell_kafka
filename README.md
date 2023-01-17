@@ -1,6 +1,6 @@
 ### mysql+maxwell+kafka test
 
-#### Step 1 clone files:
+### Step 1 clone files:
 
 config.properties
 docker-compose.yaml
