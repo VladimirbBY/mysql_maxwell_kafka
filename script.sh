@@ -10,7 +10,7 @@ docker exec -it replication mysql -uroot -proot -e "USE k8s_temp_env; INSERT INT
 
 output_mysql=$(docker exec -it replication mysql -uroot -proot -e  "USE k8s_temp_env; SELECT json_object('id', id)  FROM info ORDER BY id DESC LIMIT 1;" | awk -F'[^0-9]*' '$0=$2')
 
-echo Privet $output_mysql
+echo Ping $output_mysql #TO DO delete
 
 
 # output from kafka
@@ -19,7 +19,7 @@ sleep $time_delay
 
 output_kafka=$(bash -c "docker run --network aleks_default confluentinc/cp-kafkacat kafkacat -b kafka:9092  -t DB_k8s_temp_env_info  -o -1 -C -q  -p 0 -e" | jq --raw-output .data.id)
 
-echo Hello $output_kafka
+echo Pong $output_kafka #TO DO delete
 
 
 if [ "$output_mysql" -eq "$output_kafka" ]
