@@ -2,12 +2,12 @@
 
 ## Step 1 clone files:
 
-config.properties
-docker-compose.yaml
-master.cnf
-script.sh
+config.properties   
+docker-compose.yaml   
+master.cnf   
+script.sh   
 
-## Step2 create Env
+## Step 2 create Env
 
 docker-compose up -d  
 
@@ -15,7 +15,7 @@ docker exec -it kafka kafka-topics --create --bootstrap-server kafka:9092 --repl
 
 docker exec -it replication mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS test_temp_env; USE test_temp_env; CREATE TABLE IF NOT EXISTS info(id INT PRIMARY KEY AUTO_INCREMENT, test VARCHAR(50) NOT NULL DEFAULT '');"
 
-## TO DO Step3 monitoring
+## Step 3 monitoring
 
 ### Textfile Collector
 
@@ -27,6 +27,7 @@ To atomically push completion time for a cron job:
 
 echo my_batch_job_completion_time $(date +%s) > /path/to/directory/my_batch_job.prom.$$
 mv /path/to/directory/my_batch_job.prom.$$ /path/to/directory/logs.prom
+
 To statically set roles for a machine using labels:
 
 echo 'role{role="application_server"} 1' > /path/to/directory/role.prom.$$
@@ -34,6 +35,6 @@ mv /path/to/directory/role.prom.$$ /path/to/directory/role.prom
 
 
 
-##  Step4 Run script
+##  Step 4 Run script
 
 ./sсript.sh 
