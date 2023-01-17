@@ -1,0 +1,25 @@
+file:
+
+config.properties
+docker-compose.yaml
+master.cnf
+script.sh
+
+
+docker-compose up -d  
+
+docker exec -it kafka kafka-topics --create --bootstrap-server kafka:9092 --replication-factor 1 --partitions 1 --topic DB_k8s_temp_env_info
+
+docker exec -it aleks_replication_1 mysql -uroot -proot -e "CREATE DATABASE IF NOT EXISTS k8s_temp_env; USE k8s_temp_env; CREATE TABLE IF NOT EXISTS info(id INT PRIMARY KEY AUTO_INCREMENT, namespace VARCHAR(50) NOT NULL DEFAULT '', creation_date VARCHAR(50) NOT NULL DEFAULT '', termination_date VARCHAR(50) NOT NULL DEFAULT '', ns_status VARCHAR(50) NOT NULL DEFAULT '', users VARCHAR(255) NOT NULL DEFAULT '');"
+
+docker exec -it aleks_replication_1 mysql -uroot -proot -e "USE k8s_temp_env; INSERT INTO info VALUES (NULL,'test','10-01-2021','20-01-2021','active', 'user-4, user-2');"
+
+
+docker exec -it aleks_kafka_1 kafka-console-consumer --topic DB_k8s_temp_env_info --from-beginning --bootstrap-server kafka:9092 
+
+docker exec -it aleks-replication-1 mysql -uroot -proot -e "USE k8s_temp_env; SELECT * FROM info;"
+
+
+docker exec -it kafka kafka-configs --alter --add-config retention.ms=1000 --topic DB_k8s_temp_env_info --bootstrap-server kafka:9092
+
+
