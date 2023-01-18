@@ -19,24 +19,9 @@ restart docker-compose up -d
 
 ## Step 3 monitoring
 
-### Textfile Collector
-
-The textfile collector is similar to the Pushgateway, in that it allows exporting of statistics from batch jobs. It can also be used to export static metrics, such as what role a machine has. The Pushgateway should be used for service-level metrics. The textfile module is for metrics that are tied to a machine.
-
-To use it, set the --collector.textfile.directory flag on the node_exporter commandline. The collector will parse all files in that directory matching the glob *.prom using the text format. Note: Timestamps are not supported.
-
-To atomically push completion time for a cron job:
-
-echo my_batch_job_completion_time $(date +%s) > /path/to/directory/my_batch_job.prom.$$
-mv /path/to/directory/my_batch_job.prom.$$ /path/to/directory/logs.prom
-
-To statically set roles for a machine using labels:
-
-echo 'role{role="application_server"} 1' > /path/to/directory/role.prom.$$
-mv /path/to/directory/role.prom.$$ /path/to/directory/role.prom
-
+Use Prometeus
 
 
 ##  Step 4 Run script
 
-./sсript.sh 
+./sсript.py 
