@@ -1,5 +1,4 @@
-from flask import Response, Flask
-from datetime import datetime, timedelta
+from flask import Response, Flask, render_template
 import os
 
 print("Hello")
@@ -8,7 +7,6 @@ app = Flask(__name__)
 @app.route("/metrics", methods=["GET"])
 def metrics():
     try:
-        os.system("Echo Hello")
         os.system('docker exec -it replication mysql -uroot -proot -e "USE  test_temp_env; INSERT INTO info VALUES (NULL,"test");"')
         output_mysql = os.system("docker exec -it replication mysql -uroot -proot -e  'USE  test_temp_env; SELECT json_object('id', id)  FROM info ORDER BY id DESC LIMIT 1;' | awk -F'[^0-9]*' '$0=$2'")
         print(output_mysql)
@@ -19,7 +17,7 @@ def metrics():
             message = 'connection{Yes="working"} 0'
         elif output_mysql != output_kafka:
             message = 'connection{No="working"} 1'
-        return Response(message, mimetype="text/plain")
+        return render_template('index.html', message=message)
     except(NameError):
         message = 'connection{Error="working"} 2'
         return Response(message, mimetype="text/plain", status=200)
