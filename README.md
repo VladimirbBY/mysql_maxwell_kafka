@@ -19,7 +19,9 @@ restart docker-compose up -d
 
 ## Step 3 monitoring
 
-Use Prometeus
+Use Prometeus сonfiguration example:   
+
+prometheus.yml
 
 
 ##  Step 4 Run script
