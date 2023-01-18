@@ -25,7 +25,6 @@ def metrics():
         return Response(message, mimetype="text/plain", status=200)
 
 # @app.route("/works", methods=["GET"])
-# # Сюда приходят пакеты от ni-fi
 # def post():
 #     global last_connection_time
 #     last_connection_time = datetime.now()
