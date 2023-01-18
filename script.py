@@ -24,12 +24,6 @@ def metrics():
         message = 'connection{Error="working"} 2'
         return Response(message, mimetype="text/plain", status=200)
 
-# @app.route("/works", methods=["GET"])
-# def post():
-#     global last_connection_time
-#     last_connection_time = datetime.now()
-#     print(f'Time: {last_connection_time}.')
-#     return Response(status=200)
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=7128, debug=False)
 
